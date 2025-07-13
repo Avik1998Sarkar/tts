@@ -25,21 +25,25 @@ function App() {
     return (
         <>
             <title>Text To Speech</title>
-            <h1>Text To Speech</h1>
-            <input
-                type="text"
-                value={text}
-                onChange={e => setText(e.target.value)}
-                placeholder="Enter text"
-            />
-            <button onClick={handleGenerateSpeech} disabled={loading || !text}>
-                {loading ? 'Generating...' : 'Generate Speech'}
-            </button>
-            {audioUrl && (
-                <audio controls src={audioUrl}>
-                    Your browser does not support the audio element.
-                </audio>
-            )}
+            <div className='container mx-auto p-4 border rounded shadow-lg mt-10'>
+                <h1 className="text-2xl font-bold mb-4">Text To Speech</h1>
+                <textarea
+                    type="text"
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    placeholder="Enter text"
+                    className='w-full p-2 border rounded mb-2'
+                    rows="4"
+                ></textarea>
+                <button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={handleGenerateSpeech} disabled={loading || !text}>
+                    {loading ? 'Generating...' : 'Generate Speech'}
+                </button>
+                {audioUrl && (
+                    <audio controls src={audioUrl} className='mt-2 w-full'>
+                        Your browser does not support the audio element.
+                    </audio>
+                )}
+            </div>
         </>
     )
 }
