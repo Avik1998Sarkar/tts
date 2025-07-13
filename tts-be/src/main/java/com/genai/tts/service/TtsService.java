@@ -25,7 +25,7 @@ public class TtsService {
         this.audioSpeechModel = audioSpeechModel;
     }
 
-    public void textToSpeech(String inputPrompt) throws FileNotFoundException {
+    public ResponseEntity<Resource> textToSpeech(String inputPrompt) throws FileNotFoundException {
         OpenAiAudioSpeechOptions options = OpenAiAudioSpeechOptions
                 .builder()
                 .model(OpenAiAudioApi.TtsModel.TTS_1_HD.getValue())
@@ -46,5 +46,16 @@ public class TtsService {
             throw new RuntimeException(e);
         }
 
+        ByteArrayResource byteArrayResource = new ByteArrayResource(speechOutputByteArray);
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(byteArrayResource.contentLength())
+                .header("Content-Disposition",
+                        ContentDisposition.attachment()
+                                .filename("output.mp3")
+                                .build()
+                                .toString())
+                .body(byteArrayResource);
     }
 }

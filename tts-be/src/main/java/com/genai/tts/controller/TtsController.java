@@ -18,7 +18,8 @@ public class TtsController {
         this.ttsService = ttsService;
     }
 
-    public void generateSpeech(@RequestParam String userPrompt) throws FileNotFoundException {
-        ttsService.textToSpeech(userPrompt);
+    @GetMapping(produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<Resource> generateSpeech(@RequestParam String text) throws FileNotFoundException {
+        return ttsService.textToSpeech(text);
     }
 }
