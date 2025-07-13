@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 
 @RestController
 @RequestMapping("/api/tts")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class TtsController {
 
     private final TtsService ttsService;
